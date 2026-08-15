@@ -1,0 +1,17 @@
+# Build artifacts
+dwm
+*.o
+
+# Generated configuration
+config.h
+
+# Distribution archives
+dwm-*.tar
+dwm-*.tar.gz
+
+# Editor / OS files
+*~
+*.swp
+*.swo
+.DS_Store
+
