@@ -16,7 +16,7 @@ static const char col_cyan[]        = "#5888aa";
 static const char col_red[]         = "#cc0000";
 static const char *colors[][4] = {
     /*               fg         bg         border     float */
-    [SchemeNorm] = { col_white, col_black, col_black, col_red },
+    [SchemeNorm] = { col_white, col_black, col_black, col_white},
     [SchemeSel]  = { col_white, col_cyan,  col_cyan,  col_red },
 };
 
@@ -97,22 +97,30 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
-	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
-	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
-	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-25x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 50h" } },
-	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
-	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
-	{ MODKEY|ControlMask,           XK_Up,     moveresizeedge, {.v = "t"} },
-	{ MODKEY|ControlMask,           XK_Down,   moveresizeedge, {.v = "b"} },
-	{ MODKEY|ControlMask,           XK_Left,   moveresizeedge, {.v = "l"} },
-	{ MODKEY|ControlMask,           XK_Right,  moveresizeedge, {.v = "r"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Up,     moveresizeedge, {.v = "T"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
+
+	/* move floating windows */
+	{ MODKEY|ShiftMask,             XK_h,      moveresize,     {.v = "-25x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_j,      moveresize,     {.v = "0x 25y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_k,      moveresize,     {.v = "0x -25y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_l,      moveresize,     {.v = "25x 0y 0w 0h" } },
+
+	/* resize floating windows */
+	{ MODKEY|Mod1Mask,              XK_h,      moveresize,     {.v = "0x 0y -25w 0h" } },
+	{ MODKEY|Mod1Mask,              XK_j,      moveresize,     {.v = "0x 0y 0w 50h" } },
+	{ MODKEY|Mod1Mask,              XK_k,      moveresize,     {.v = "0x 0y 0w -25h" } },
+	{ MODKEY|Mod1Mask,              XK_l,      moveresize,     {.v = "0x 0y 25w 0h" } },
+
+	/* move floating windows to edge */
+	{ MODKEY|ControlMask,           XK_h,      moveresizeedge, {.v = "l"} },
+	{ MODKEY|ControlMask,           XK_j,      moveresizeedge, {.v = "b"} },
+	{ MODKEY|ControlMask,           XK_k,      moveresizeedge, {.v = "t"} },
+	{ MODKEY|ControlMask,           XK_l,      moveresizeedge, {.v = "r"} },
+
+	/* resize floating windows to edge */
+	{ MODKEY|ControlMask|ShiftMask, XK_h,      moveresizeedge, {.v = "L"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_j,      moveresizeedge, {.v = "B"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_k,      moveresizeedge, {.v = "T"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_l,      moveresizeedge, {.v = "R"} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },

@@ -1,0 +1,23 @@
+Super+h/l              = change master width (existing)
+Super+j/k              = switch window focus
+Super+Shift+j/k        = move stack position
+Super+Alt+h/j/k/l      = resize
+Super+Ctrl+h/j/k/l     = snap/move edge
+Super+Ctrl+Shift+h/j/k/l = snap resize edge
+
+
+Super+i/d                    = increase/decrease number of master clients
+Super+Enter                  = zoom selected window into master
+Super+Tab                    = view previous tag
+Super+0                      = view all tags
+Super+Shift+0                = tag to all tags
+Super+comma/period           = focus monitor
+Super+Shift+comma/period     = move window to monitor
+Super+t/f/m                  = tiled/floating/monocle layouts
+Super+Space                  = cycle layout
+Super+b                      = toggle bar
+Super+Shift+c                = kill client
+Super+p                      = launch dmenu
+Super+Shift+Enter            = terminal
+
+
