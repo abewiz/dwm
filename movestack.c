@@ -2,6 +2,14 @@ void
 movestack(const Arg *arg) {
 	Client *c = NULL, *p = NULL, *pc = NULL, *i;
 
+	/* If the selected window is floating, move it vertically
+	 * instead of changing the tiled window stack. */
+	if (selmon->sel->isfloating) {
+		Arg a = { .v = arg->i > 0 ? "0x 25y 0w 0h" : "0x -25y 0w 0h" };
+		moveresize(&a);
+		return;
+	}
+
 	if(arg->i > 0) {
 		/* find the client after selmon->sel */
 		for(c = selmon->sel->next; c && (!ISVISIBLE(c) || c->isfloating); c = c->next);
@@ -19,6 +27,7 @@ movestack(const Arg *arg) {
 				if(ISVISIBLE(i) && !i->isfloating)
 					c = i;
 	}
+
 	/* find the client before selmon->sel and c */
 	for(i = selmon->clients; i && (!p || !pc); i = i->next) {
 		if(i->next == selmon->sel)
@@ -27,10 +36,10 @@ movestack(const Arg *arg) {
 			pc = i;
 	}
 
-	/* swap c and selmon->sel selmon->clients in the selmon->clients list */
+	/* swap c and selmon->sel in the selmon->clients list */
 	if(c && c != selmon->sel) {
-		Client *temp = selmon->sel->next==c?selmon->sel:selmon->sel->next;
-		selmon->sel->next = c->next==selmon->sel?c:c->next;
+		Client *temp = selmon->sel->next == c ? selmon->sel : selmon->sel->next;
+		selmon->sel->next = c->next == selmon->sel ? c : c->next;
 		c->next = temp;
 
 		if(p && p != c)
@@ -46,3 +55,4 @@ movestack(const Arg *arg) {
 		arrange(selmon);
 	}
 }
+
